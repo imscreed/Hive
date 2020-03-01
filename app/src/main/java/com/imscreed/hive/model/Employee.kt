@@ -50,5 +50,19 @@ data class EmployeeResponse(
 )
 
 enum class EmployeeType {
-    FULL_TIME, PART_TIME, CONTRACTOR
+    FULL_TIME {
+        override fun toString(): String {
+            return "Full-time"
+        }
+    },
+    PART_TIME {
+        override fun toString(): String {
+            return "Part-time"
+        }
+    },
+    CONTRACTOR {
+        override fun toString(): String {
+            return "Contractor"
+        }
+    }
 }

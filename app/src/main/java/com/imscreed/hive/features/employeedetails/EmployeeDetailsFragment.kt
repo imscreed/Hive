@@ -47,6 +47,7 @@ class EmployeeDetailsFragment : Fragment(), View.OnClickListener {
             nameView.text = mEmployee!!.fullName
             teamView.text = mEmployee!!.team
             biographyView.text = mEmployee!!.biography
+            typeView.text = mEmployee!!.employeeType.toString()
             emailButton.setOnClickListener(this)
             phoneButton.setOnClickListener(this)
         }
