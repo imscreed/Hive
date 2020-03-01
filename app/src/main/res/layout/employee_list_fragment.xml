@@ -7,6 +7,7 @@
     tools:context=".features.employeelist.EmployeeListFragment">
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/employeeRecyclerView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_margin="@dimen/spacing_medium"
@@ -14,6 +15,7 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
