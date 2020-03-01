@@ -46,7 +46,6 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     implementation "androidx.core:core-ktx:$ktx_version"
 
     // Architecture Components
@@ -76,6 +75,10 @@ dependencies {
 
     //Coil
     implementation("io.coil-kt:coil:0.9.5")
+
+    //UI
+    implementation "androidx.cardview:cardview:1.0.0"
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
 
     //Testing
     testImplementation 'junit:junit:4.12'

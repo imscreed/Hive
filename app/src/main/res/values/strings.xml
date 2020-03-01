@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Hive</string>
+    <string name="profile_picture_description">Profile Picture</string>
+    <string name="sample_name">John Appleseed</string>
+    <string name="sample_team">Product Management</string>
+    <string name="email">Email</string>
+    <string name="phone">Phone</string>
+    <string name="sample_biography">This is a sample biography. This is a sample biography. This is a sample biography. This is a sample biography.</string>
 </resources>
