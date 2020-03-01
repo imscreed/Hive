@@ -1,6 +1,8 @@
 package com.imscreed.hive.model
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
 /*
 *  "employees" : [
@@ -21,26 +23,27 @@ import com.google.gson.annotations.SerializedName
     ...
 
   ]*/
+@Parcelize
 data class Employee(
     @SerializedName("uuid")
     val uuid: String,
     @SerializedName("full_name")
     val fullName: String,
     @SerializedName("phone_number")
-    val phoneNumber: String,
+    val phoneNumber: String?,
     @SerializedName("email_address")
     val emailAddress: String,
     @SerializedName("biography")
-    val biography: String,
+    val biography: String?,
     @SerializedName("photo_url_small")
-    val photoUrlSmall: String,
+    val photoUrlSmall: String?,
     @SerializedName("photo_url_large")
-    val photoUrlLarge: String,
+    val photoUrlLarge: String?,
     @SerializedName("team")
     val team: String,
     @SerializedName("employee_type")
     val employeeType: EmployeeType
-)
+) : Parcelable
 
 data class EmployeeResponse(
     val employees: List<Employee>
