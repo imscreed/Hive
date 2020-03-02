@@ -36,7 +36,6 @@ class EmployeeDetailsFragment : Fragment(), View.OnClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Log.d(TAG, "From detail " + mEmployee?.fullName)
 
         if (mEmployee != null) {
             profilePicView.load(mEmployee!!.photoUrlSmall) {

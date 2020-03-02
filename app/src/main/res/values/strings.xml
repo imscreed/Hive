@@ -6,4 +6,6 @@
     <string name="email">Email</string>
     <string name="phone">Phone</string>
     <string name="sample_biography">This is a sample biography. This is a sample biography. This is a sample biography. This is a sample biography.</string>
+    <string name="empty_list">No employees found</string>
+    <string name="empty_title">Uh Oh! No employees found</string>
 </resources>

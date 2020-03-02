@@ -35,17 +35,19 @@ class EmployeeListFragment : Fragment(), OnEmployeeClickListener {
         employeeListViewModel.employees.observe(
             viewLifecycleOwner,
             Observer<MutableList<Employee>> { employees ->
-                Log.d(TAG, employees.toString())
-                employeeListAdapter = EmployeeListAdapter(employees, this)
-                employeeRecyclerView.adapter = employeeListAdapter
-
+                if (employees != null && employees.isNotEmpty()) {
+                    emptyListStateView.visibility = View.GONE
+                    employeeListAdapter = EmployeeListAdapter(employees, this)
+                    employeeRecyclerView.adapter = employeeListAdapter
+                } else {
+                    emptyListStateView.visibility = View.VISIBLE
+                }
             }
         )
         return inflater.inflate(R.layout.employee_list_fragment, container, false)
     }
 
     override fun onItemClicked(employee: Employee) {
-        Log.d(TAG, employee.fullName)
         val bundle = bundleOf(AppConstants.EMPLOYEE_KEY to employee)
         view?.findNavController()
             ?.navigate(R.id.action_employeeListFragment_to_employeeDetailsFragment, bundle)
