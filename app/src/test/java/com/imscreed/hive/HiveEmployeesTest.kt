@@ -1,8 +1,10 @@
 package com.imscreed.hive
 
+import android.util.Log
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.LiveData
 import com.google.common.truth.Truth.assertThat
+import com.google.gson.Gson
 import com.imscreed.hive.features.employeelist.EmployeeListViewModel
 import com.imscreed.hive.model.EmployeeResponse
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
@@ -34,8 +36,8 @@ class HiveEmployeesTest {
     val coroutineRule = CoroutineTestRule()
 
     interface TestEmployeeApi {
-        @GET("employees_malformed.json")
-        fun getEmployees(): Deferred<Response<String>>
+        @GET("/")
+        fun getEmployeesAsync(): Deferred<Response<EmployeeResponse>>
     }
 
     private lateinit var viewModel: EmployeeListViewModel
@@ -45,7 +47,8 @@ class HiveEmployeesTest {
     fun setUp() {
         viewModel = EmployeeListViewModel()
 
-        val retrofit = Retrofit.Builder().baseUrl(server.url("/"))
+        val retrofit = Retrofit.Builder()
+            .baseUrl(server.url("/"))
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(CoroutineCallAdapterFactory())
             .build()
@@ -69,13 +72,14 @@ class HiveEmployeesTest {
         }
     }
 
-    @ExperimentalCoroutinesApi
     @Test
-    fun bodySuccess200() = runBlocking {
-        val employeeListString = "Test"
-        server.enqueue(MockResponse().setBody(employeeListString))
-        val deferred = employeeApi.getEmployees()
-        assertThat(deferred.await()).isEqualTo("Test")
+    fun employeeFetchSuccess() = runBlocking {
+        val employeeList = Gson().toJson(MockTestUtil.mockEmployeeList())
+        server.enqueue(MockResponse().setBody(employeeList))
+        val deferred: Deferred<Response<EmployeeResponse>> = employeeApi.getEmployeesAsync()
+        val response = deferred.await()
+        assertThat(response.isSuccessful).isTrue()
+        assertThat(response.body()).isEqualTo(EmployeeResponse(MockTestUtil.mockEmployeeList()))
     }
 
     fun <T> LiveData<T>.observeOnce(onChangeHandler: (T) -> Unit) {
