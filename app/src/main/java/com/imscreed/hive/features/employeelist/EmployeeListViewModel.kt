@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.imscreed.hive.base.BaseViewModel
 import com.imscreed.hive.model.Employee
 import com.imscreed.hive.repository.EmployeeRepository
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -17,8 +18,8 @@ class EmployeeListViewModel : BaseViewModel() {
         fetchEmployeesFromRepository()
     }
 
-    private val _employeesLiveData = MutableLiveData<MutableList<Employee>>()
-    val employees : LiveData<MutableList<Employee>>
+    val _employeesLiveData = MutableLiveData<MutableList<Employee>>()
+    val employees: LiveData<MutableList<Employee>>
         get() = _employeesLiveData
 
     private fun fetchEmployeesFromRepository() {
@@ -27,5 +28,4 @@ class EmployeeListViewModel : BaseViewModel() {
             _employeesLiveData.postValue(employeeList)
         }
     }
-
 }

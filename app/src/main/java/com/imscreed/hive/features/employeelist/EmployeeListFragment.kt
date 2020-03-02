@@ -37,10 +37,12 @@ class EmployeeListFragment : Fragment(), OnEmployeeClickListener {
             Observer<MutableList<Employee>> { employees ->
                 if (employees != null && employees.isNotEmpty()) {
                     emptyListStateView.visibility = View.GONE
+                    progressBar.visibility = View.GONE
                     employeeListAdapter = EmployeeListAdapter(employees, this)
                     employeeRecyclerView.adapter = employeeListAdapter
                 } else {
                     emptyListStateView.visibility = View.VISIBLE
+                    progressBar.visibility = View.GONE
                 }
             }
         )
