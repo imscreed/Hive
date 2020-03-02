@@ -7,6 +7,7 @@ import com.google.common.truth.Truth.assertThat
 import com.google.gson.Gson
 import com.imscreed.hive.features.employeelist.EmployeeListViewModel
 import com.imscreed.hive.model.EmployeeResponse
+import com.imscreed.hive.repository.EmployeeRepository
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -18,6 +19,8 @@ import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
+import org.mockito.Mockito
+import org.mockito.internal.util.MockUtil
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -42,10 +45,14 @@ class HiveEmployeesTest {
 
     private lateinit var viewModel: EmployeeListViewModel
     private lateinit var employeeApi: TestEmployeeApi
+    private lateinit var repository: EmployeeRepository
 
     @Before
     fun setUp() {
-        viewModel = EmployeeListViewModel()
+//        repository = Mockito.mock(EmployeeRepository::class.java)
+//        viewModel = EmployeeListViewModel(repository)
+
+
 
         val retrofit = Retrofit.Builder()
             .baseUrl(server.url("/"))
@@ -55,26 +62,40 @@ class HiveEmployeesTest {
         employeeApi = retrofit.create(TestEmployeeApi::class.java)
     }
 
-    @Test
-    fun `verify EmployeeListLiveData returnsGivenValue`() {
+//    @Test
+//    fun test() {
+//        //setup
+//        val data = null
+//        Mockito.`when`(repository.fetchEmployeesFromRemote()).thenReturn(data)
+//
+//        //execute
+//
+//
+//        //verify
+//        assertThat(viewModel.employees)
+//
+//    }
 
-        val employeeList = MockTestUtil.mockEmployeeList()
-        val subject = viewModel._employeesLiveData
-
-        coroutineRule.runBlockingTest {
-            subject.postValue(employeeList)
-        }
-
-        subject.observeOnce {
-            println("Expected -> $employeeList")
-            println("Actual -> $it")
-            assertEquals(employeeList, it)
-        }
-    }
+//    @Test
+//    fun `verify EmployeeListLiveData returnsGivenValue`() {
+//
+//        val employeeList = MockTestUtil.mockEmployeeList()
+//        val subject = viewModel._employeesLiveData
+//
+//        coroutineRule.runBlockingTest {
+//            subject.postValue(employeeList)
+//        }
+//
+//        subject.observeOnce {
+//            println("Expected -> $employeeList")
+//            println("Actual -> $it")
+//            assertEquals(employeeList, it)
+//        }
+//    }
 
     @Test
     fun employeeFetchSuccess() = runBlocking {
-        val employeeList = Gson().toJson(MockTestUtil.mockEmployeeList())
+        val employeeList = Gson().toJson(EmployeeResponse(MockTestUtil.mockEmployeeList()))
         server.enqueue(MockResponse().setBody(employeeList))
         val deferred: Deferred<Response<EmployeeResponse>> = employeeApi.getEmployeesAsync()
         val response = deferred.await()
