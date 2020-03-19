@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/employeeListFragment"
         android:name="com.imscreed.hive.features.employeelist.EmployeeListFragment"
-        android:label="employee_list_fragment"
+        android:label="@string/employees"
         tools:layout="@layout/employee_list_fragment" >
         <action
             android:id="@+id/action_employeeListFragment_to_employeeDetailsFragment"
@@ -17,6 +17,6 @@
     <fragment
         android:id="@+id/employeeDetailsFragment"
         android:name="com.imscreed.hive.features.employeedetails.EmployeeDetailsFragment"
-        android:label="employee_details_fragment"
+        android:label="@string/details"
         tools:layout="@layout/employee_details_fragment" />
 </navigation>

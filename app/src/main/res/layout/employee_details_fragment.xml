@@ -54,11 +54,11 @@
             tools:text="@string/sample_team" />
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:id="@+id/phoneInfoLayout"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/spacing_small"
-            android:gravity="center"
             android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="@+id/emailInfoLayout"
             app:layout_constraintTop_toBottomOf="@+id/teamView">
 
             <ImageButton
@@ -70,14 +70,41 @@
                 android:contentDescription="@string/phone"
                 android:src="@android:drawable/stat_sys_phone_call" />
 
+            <TextView
+                android:id="@+id/phoneText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:textColor="@android:color/white"
+                tools:text="867896789" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/emailInfoLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/phoneInfoLayout">
+
             <ImageButton
                 android:id="@+id/emailButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/spacing_small"
+                android:layout_marginEnd="@dimen/spacing_small"
                 android:background="@color/colorPrimary"
                 android:contentDescription="@string/email"
                 android:src="@android:drawable/ic_dialog_email" />
+
+            <TextView
+                android:id="@+id/emailText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:textColor="@android:color/white"
+                tools:text="abc@abc.com" />
 
         </LinearLayout>
 
