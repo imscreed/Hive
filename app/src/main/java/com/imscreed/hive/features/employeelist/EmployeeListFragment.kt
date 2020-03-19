@@ -1,5 +1,6 @@
 package com.imscreed.hive.features.employeelist
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -16,8 +17,13 @@ import kotlinx.android.synthetic.main.employee_list_fragment.*
 import com.imscreed.hive.R
 import com.imscreed.hive.model.Employee
 import com.imscreed.hive.utils.AppConstants
+import dagger.android.support.AndroidSupportInjection
+import javax.inject.Inject
 
 class EmployeeListFragment : Fragment(), OnEmployeeClickListener {
+
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
 
     companion object {
         fun newInstance() = EmployeeListFragment()
@@ -27,11 +33,16 @@ class EmployeeListFragment : Fragment(), OnEmployeeClickListener {
     private lateinit var employeeListViewModel: EmployeeListViewModel
     private lateinit var employeeListAdapter: EmployeeListAdapter
 
+    override fun onAttach(context: Context) {
+        AndroidSupportInjection.inject(this)
+        super.onAttach(context)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        employeeListViewModel = ViewModelProvider(this).get(EmployeeListViewModel::class.java)
+        employeeListViewModel = ViewModelProvider(this, viewModelFactory).get(EmployeeListViewModel::class.java)
         employeeListViewModel.employees.observe(
             viewLifecycleOwner,
             Observer<MutableList<Employee>> { employees ->

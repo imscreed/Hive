@@ -2,17 +2,14 @@ package com.imscreed.hive.features.employeelist
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.imscreed.hive.base.BaseViewModel
 import com.imscreed.hive.model.Employee
 import com.imscreed.hive.repository.EmployeeRepository
-import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class EmployeeListViewModel : BaseViewModel() {
-    @Inject
-    lateinit var repository: EmployeeRepository
+class EmployeeListViewModel @Inject constructor(private var repository: EmployeeRepository) : ViewModel() {
 
     init {
         fetchEmployeesFromRepository()
