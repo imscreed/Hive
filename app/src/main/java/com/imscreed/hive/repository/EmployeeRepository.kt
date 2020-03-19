@@ -14,16 +14,22 @@ import javax.inject.Singleton
 class EmployeeRepository
 @Inject constructor(private val employeeApi: EmployeeApi, val employeeDao: EmployeeDao) : BaseRepository() {
 
+    var employees: MutableList<Employee>? = null
+
+    init {
+        employees = fetchEmployeesFromDB()
+    }
+
     suspend fun fetchEmployees(): MutableList<Employee>? {
         return if(NetworkUtil.isConnectedToNetwork){
             fetchEmployeesFromRemote()
         } else {
-            fetchEmployeesFromDB()
+            employees ?: fetchEmployeesFromRemote()
         }
     }
 
     private fun fetchEmployeesFromDB(): MutableList<Employee> {
-        return employeeDao.getAllEmployees()
+        return employees ?: employeeDao.getAllEmployees()
     }
 
     suspend fun fetchEmployeesFromRemote(): MutableList<Employee>? {
@@ -42,7 +48,8 @@ class EmployeeRepository
         return response?.employees?.toMutableList()
     }
 
-    fun saveToDB(employees: List<Employee>) {
+    fun saveToDB(employees: MutableList<Employee>) {
+        this.employees = employees
         employeeDao.saveEmployees(employees)
     }
 
