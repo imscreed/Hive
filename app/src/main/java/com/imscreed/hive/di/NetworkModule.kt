@@ -4,6 +4,7 @@ import android.content.Context
 import com.imscreed.hive.BuildConfig
 import com.imscreed.hive.HiveApplication
 import com.imscreed.hive.api.EmployeeApi
+import com.imscreed.hive.persistence.EmployeeDao
 import com.imscreed.hive.repository.EmployeeRepository
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import dagger.Module
@@ -40,8 +41,8 @@ class NetworkModule {
 
     @Provides
     @Singleton
-    fun provideEmployeeRepository(retrofit: Retrofit): EmployeeRepository {
+    fun provideEmployeeRepository(retrofit: Retrofit, employeeDao: EmployeeDao): EmployeeRepository {
         val employeeApi = retrofit.create(EmployeeApi::class.java)
-        return EmployeeRepository(employeeApi)
+        return EmployeeRepository(employeeApi, employeeDao)
     }
 }

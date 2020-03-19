@@ -1,7 +1,11 @@
 package com.imscreed.hive.model
 
 import android.os.Parcelable
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import androidx.room.TypeConverter
 import com.google.gson.annotations.SerializedName
+import com.imscreed.hive.persistence.Converters
 import kotlinx.android.parcel.Parcelize
 
 /*
@@ -24,7 +28,9 @@ import kotlinx.android.parcel.Parcelize
 
   ]*/
 @Parcelize
+@Entity(tableName = "employees")
 data class Employee(
+    @PrimaryKey
     @SerializedName("uuid")
     val uuid: String,
     @SerializedName("full_name")
@@ -52,7 +58,7 @@ data class EmployeeResponse(
 enum class EmployeeType {
     FULL_TIME {
         override fun toString(): String {
-            return "Full-time"
+                return "Full-time"
         }
     },
     PART_TIME {

@@ -21,7 +21,7 @@ class EmployeeListViewModel @Inject constructor(private var repository: Employee
 
     private fun fetchEmployeesFromRepository() {
         viewModelScope.launch {
-            val employeeList = repository.fetchEmployeesFromRemote()
+            val employeeList = repository.fetchEmployees()
             _employeesLiveData.postValue(employeeList)
         }
     }
